@@ -29,6 +29,8 @@
           <div class="sidebar-module">
             <h4>Actions</h4>
             <ol class="list-unstyled">
+              <li><a href="/companies">My Companies</a></li>
+              <li><a href="/companies/create">Create new Company</a></li>
               <li><a href="/companies/{{ $company->id }}/edit">Edit</a></li>
               <li>
                 <a  href="#" onclick="var result = confirm('Are you sure you wish to delete this Company?');
@@ -45,6 +47,8 @@
                 </form>
               
               </li>
+              <br />
+              <li><a href="/projects/create">Add Project</a></li>
             </ol>
           </div>
           <div class="sidebar-module">
