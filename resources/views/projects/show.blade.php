@@ -3,9 +3,9 @@
 @section('content')
       <!-- Jumbotron -->
       <div class="col-md-9 col-lg-9 col-sm-9 pull-left">
-        <div class="jumbotron">
-          <h1>{{ $company->name }}</h1>
-          <p class="lead">{{ $company->description }}</p>
+        <div class="well well-lg">
+          <h1>{{ $project->name }}</h1>
+          <p class="lead">{{ $project->description }}</p>
           <!--<p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>-->
         </div>
 
@@ -13,14 +13,53 @@
         <div style="padding: 0 0 10px 0 " class="col-md-12">
           <a class="btn btn-default pull-right  btn-sm" href="/projects/create">Add Project</a>
         </div>
+        <!--For Comment Form -->
+        <div class="row container-fluid">
+          <form method="post" action="{{ route('comments.store') }}">
+                {{ csrf_field() }}
+
+                <input type="hidden" name="commentable" value="Project" />
+                <input type="hidden" name="commentable_id" value="{{$project->id}}" />
+
+                <div class="form-group">
+                    <label for="comment-content">Comment</label>
+                    <textarea placeholder="Enter Comment"
+                              style="resize: vertical"
+                              id="comment-content"
+                              name="body"
+                              rows="3"
+                              spellcheck="false"
+                              class="form-control autosize-target text-left">
+                    </textarea>
+                  </div>
+
+                <div class="form-group">
+                    <label for="project-content">Proof of work Done (Url/Photos)</label>
+                    <textarea placeholder="Enter Url or screenshot"
+                              style="resize: vertical"
+                              id="project-content"
+                              name="url"
+                              rows="2"
+                              spellcheck="false"
+                              class="form-control autosize-target text-left">
+                    </textarea>
+                  </div>
+
+
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-info" value="submit" />
+                  </div>
+              </form>
+            </div>
+
         <div class="row">
-        @foreach( $company->projects as $project)
+        {{-- @foreach( $project->projects as $project)
             <div style="background-color: white;" class="col-md-4">
             <h2>{{ $project->name }}</h2>
             <p class="text-danger"> {{ $project->description}} </p>
             <p><a class="btn btn-primary" href="/projects/{{ $project->id }}" role="button">View details &raquo;</a></p>
           </div>
-        @endforeach
+        @endforeach --}}
         </div>
       </div>
       
@@ -32,26 +71,26 @@
           <div class="sidebar-module">
             <h4>Actions</h4>
             <ol class="list-unstyled">
-              <li><a href="/companies">My Companies</a></li>
-              <li><a href="/companies/create">Create new Company</a></li>
-              <li><a href="/companies/{{ $company->id }}/edit">Edit</a></li>
-              <li>
-                <a  href="#" onclick="var result = confirm('Are you sure you wish to delete this Company?');
+              <li><a href="/projects">My projects</a></li>
+              <li><a href="/projects/create">Create new project</a></li>
+              <li><a href="/projects/{{ $project->id }}/edit">Edit</a></li>
+
+              @if($project->user_id == Auth::user()->id)
+              <li><a  href="#" onclick="var result = confirm('Are you sure you wish to delete this project?');
                                         if( result ){
                                                 event.preventDefault();
                                                 document.getElementById('delete-form').submit();
                                         }">Delete
                 </a>
 
-                <form id="delete-form" action="{{ route('companies.destroy',[$company->id]) }}" 
+                <form id="delete-form" action="{{ route('projects.destroy',[$project->id]) }}" 
                   method="POST" style="display: none;">
                           <input type="hidden" name="_method" value="delete">
                           {{ csrf_field() }}
                 </form>
-              
               </li>
+              @endif                            
               <br />
-              <li><a href="/projects/create">Add Project</a></li>
             </ol>
           </div>
           <div class="sidebar-module">

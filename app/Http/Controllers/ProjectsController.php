@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Company;
+//use App\ProjectUser;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Auth;
 
@@ -28,9 +31,17 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($company_id = null)
     {
-        return view('projects.create');
+        //dump($project->id);
+        $companies = null;
+        if(!$company_id){
+           $companies = Company::where('user_id', Auth::user()->id)->get();
+        }
+
+        //dump($company_id);
+
+        return view('projects.create',['company_id'=>$company_id]);
     }
 
     /**
@@ -44,7 +55,8 @@ class ProjectsController extends Controller
         if(Auth::check()){
             $project = Project::create([
                 'name' =>$request->input('name'),
-                'description' =>$request->input('description'),
+                'description' => $request->input('description'),
+                'company_id' => $request->input('company_id'),
                 'user_id' => Auth::user()->id
             ]);
             if( $project){
@@ -62,7 +74,7 @@ class ProjectsController extends Controller
      * @param  \App\project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(project $project)
+    public function show(Project $project)
     {
         //$project = Project::where('id', $project->id)->first();
         $project = Project::find($project->id);
@@ -75,7 +87,7 @@ class ProjectsController extends Controller
      * @param  \App\project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(project $project)
+    public function edit(Project $project)
     {
         $project = Project::find($project->id);
         return view('projects.edit' , ['project' => $project]);
@@ -107,7 +119,7 @@ class ProjectsController extends Controller
      * @param  \App\project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(project $project)
+    public function destroy(Project $project)
     {
         $findproject = Project::find( $project->id);
 		if($findproject->delete()){

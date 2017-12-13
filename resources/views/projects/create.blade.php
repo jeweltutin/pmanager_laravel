@@ -6,10 +6,11 @@
         <h1>Create New Projects</h1>
         <!-- Example row of columns -->
         <div class="row col-lg-12 col-md-12 col-sm-12">
+        {{ $company_id  }}
 
             <form method="post" action="{{ route('projects.store') }}">
               {{ csrf_field() }}
-
+               
               <!--<input type="hidden" name="_method" value="put">-->
                 <div class="form-group">
                   <label for="project-name">Name<span class="requird">*</span></label>
@@ -18,10 +19,9 @@
                          requird
                          name="name"
                          spellcheck="false"
-                         class="form-control"
-                          />
-                   
+                         class="form-control"/>
                 </div>
+                <input class="form-control" type="hidden"  name="company_id" value="{{ $company_id }}" />
                 <div class="form-group">
                   <label for="project-content">Description</label>
                   <textarea placeholder="Enter description"

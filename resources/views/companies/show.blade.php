@@ -11,7 +11,7 @@
 
         <!-- Example row of columns -->
         <div style="padding: 0 0 10px 0 " class="col-md-12">
-          <a class="btn btn-default pull-right  btn-sm" href="/projects/create">Add Project</a>
+          <a class="btn btn-default pull-right  btn-sm" href="/projects/create/{{ $company->id }}">Add Project</a>
         </div>
         <div class="row">
         @foreach( $company->projects as $project)
@@ -51,7 +51,7 @@
               
               </li>
               <br />
-              <li><a href="/projects/create">Add Project</a></li>
+              <li><a href="/projects/create/{{ $company->id }}">Add Project</a></li>
             </ol>
           </div>
           <div class="sidebar-module">
