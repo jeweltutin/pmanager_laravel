@@ -2,11 +2,10 @@
 
 @section('content')
       <!-- Jumbotron -->
-      <div class="col-md-9 col-lg-9 col-sm-9 pull-left" style="background-color: white;">
-        <h1>Update Companies</h1>
+      <div class="col-md-9 col-lg-9 col-sm-9 pull-left">
 
         <!-- Example row of columns -->
-        <div class="row col-lg-12 col-md-12 col-sm-12"  >
+        <div class="row col-lg-12 col-md-12 col-sm-12" style="background-color: white;" >
 
             <form method="post" action="{{ route('companies.update',[$company->id]) }}">
               {{ csrf_field() }}
