@@ -41,7 +41,7 @@ class ProjectsController extends Controller
 
         //dump($company_id);
 
-        return view('projects.create',['company_id'=>$company_id]);
+        return view('projects.create',['company_id'=>$company_id,'companies'=>$companies]);
     }
 
     /**
@@ -78,6 +78,7 @@ class ProjectsController extends Controller
     {
         //$project = Project::where('id', $project->id)->first();
         $project = Project::find($project->id);
+        //dd($project);
         return view('projects.show' , ['project' => $project]);
     }
 
