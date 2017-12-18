@@ -13,12 +13,13 @@
         <div style="padding: 0 0 10px 0 " class="col-md-12">
           <a class="btn btn-default pull-right  btn-sm" href="/projects/create">Add Project</a>
         </div>
+        @include('partials/comments')
         <!--For Comment Form -->
         <div class="row container-fluid">
           <form method="post" action="{{ route('comments.store') }}">
                 {{ csrf_field() }}
 
-                <input type="hidden" name="commentable_type" value="Project" />
+                <input type="hidden" name="commentable_type" value="App\Project" />
                 <input type="hidden" name="commentable_id" value="{{$project->id}}" />
 
                 <div class="form-group">
@@ -51,16 +52,6 @@
                   </div>
               </form>
             </div>
-
-        <div class="row">
-        {{-- @foreach( $project->projects as $project)
-            <div style="background-color: white;" class="col-md-4">
-            <h2>{{ $project->name }}</h2>
-            <p class="text-danger"> {{ $project->description}} </p>
-            <p><a class="btn btn-primary" href="/projects/{{ $project->id }}" role="button">View details &raquo;</a></p>
-          </div>
-        @endforeach --}}
-        </div>
       </div>
       
       <div class="col-sm-3 col-md-3  pull-right">

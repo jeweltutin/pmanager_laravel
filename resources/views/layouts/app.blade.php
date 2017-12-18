@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://use.fontawesome.com/2b5135c996.js"></script>
 </head>
 <body>
     <div id="app">
@@ -46,19 +47,19 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a href="{{ route('companies.index') }}">My Companies</a></li>
-                            <li><a href="{{ route('projects.index') }}">Projects</a></li>
-                            <li><a href="{{ route('tasks.index') }}">Tasks</a></li>
+                            <li><a href="{{ route('companies.index') }}"><i class="fa fa-building" aria-hidden="true"></i> My Companies</a></li>
+                            <li><a href="{{ route('projects.index') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Projects</a></li>
+                            <li><a href="{{ route('tasks.index') }}"><i class="fa fa-tasks" aria-hidden="true"></i> Tasks</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                {{-- Auth::user()->name --}} My Account <span class="caret"></span>
+                                {{-- Auth::user()->name --}}<i class="fa fa-address-card-o" aria-hidden="true"></i> My Account <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                                    <i class="fa fa-sign-out" aria-hidden="true"></i>Logout
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
