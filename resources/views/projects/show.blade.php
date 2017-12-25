@@ -85,11 +85,25 @@
             </ol>
           </div>
           <div class="sidebar-module">
-            <h4>Members</h4>
+          
+            <h4>Add Members</h4>   
+            <form id="add-user" method="POST" action="{{ route('projects.adduser') }}">  
+              {{ csrf_field() }}                      
+              <div class="input-group">
+                <input type="text" class="form-control" name="email" placeholder="email...">
+                <input type="hidden" class="form-control" name="project_id" value="{{ $project->id }}">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">Add</button>
+                </span>
+              </div><!-- /input-group -->
+            </form>   
+
+
+            <h4>Team Members</h4>
             <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
+              @foreach($project->users as $user )
+                <li><a href="#">{{ $user->email }}</a></li>
+              @endforeach
             </ol>
           </div>
         </div><!-- /.blog-sidebar -->
