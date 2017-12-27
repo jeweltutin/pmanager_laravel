@@ -31,3 +31,10 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('users','UsersController');
     Route::resource('comments','CommentsController');
 });
+
+
+//Route::resource('fileupload','FileuploadController');  OR
+Route::get('fileupload','FileuploadController@index');
+//Route::post('fileupload/store','FileuploadController@store')->name('fileupload.store');
+Route::post('fileupload/store','FileuploadController@store');
+Route::get('fileupload/show','FileuploadController@show');
