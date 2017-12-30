@@ -42,3 +42,6 @@ Route::get('fileupload/show','FileuploadController@show');
 
 Route::get('fileupload/showfileform','FileuploadController@showfileform')->name('fileupload.showfileform');
 Route::post('file/uploading','FileuploadController@storeFile')->name('file.upload');
+
+//for protection
+Route::get('uploadedFile/{filename}','FileuploadController@getFile')->name('get.file')->middleware('auth');

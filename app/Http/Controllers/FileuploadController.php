@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Fileupload;
+use App\Fileupload;    //For using the model
 
 class FileuploadController extends Controller
 {
@@ -48,8 +48,26 @@ class FileuploadController extends Controller
 
             //return "File uploaded successfully";
            **/
-
         }
+    }
+
+    /**
+     * File security/ Protect your file
+     * This will needed for testing
+     * http://localhost:8000/uploadedFile/jewelimage.jpg 
+     */
+
+    public function getFile($filename){
+        //return $filename;
+        return response()->download(Storage_path('app/public/allimages/'.$filename,null,[],null));
+
+        /*try{
+            return response()->download(Storage_path('public/allimages/'.$filename,nul,[],null));
+        }
+        catch(\Exception $e){
+            return 'File not found';
+
+        }*/
     }
 
     public function store(Request $fdata){     
@@ -97,7 +115,6 @@ class FileuploadController extends Controller
         }*/
 
         Storage::delete('newImage.jpg','public/name2.jpg');
-
 
         //$url= Storage::url('allimages/jewel.jpg');
         //return "<img src='".$url."' />";
