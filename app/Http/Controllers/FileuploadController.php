@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Fileupload;
 
 class FileuploadController extends Controller
 {
@@ -11,9 +12,50 @@ class FileuploadController extends Controller
         return view('fileupload.fileupload');
     }
 
-    public function store(Request $fdata){             
+    public function showfileform(){
+        return view('fileupload.showform');
+    }
+
+    public function storeFile(Request $myimage){
+        //return $myimage->all();
+        if($myimage->hasFile('image')){
+            foreach($myimage->image as $oboimage){
+                $imagenames = $oboimage->getClientOriginalName();
+                //print_r($imagenames."<br />");
+                $imagesize = $oboimage->getClientSize();
+    
+                $oboimage->storeAs('public/allimages',$imagenames);
+    
+                $file= new Fileupload;
+                $file->name = $imagenames;
+                $file->size = $imagesize;
+                $file->save();
+                
+            }
+            return back()->with('successmsg','File uploaded successfully :)');       
+
+            //***For Single file */
+            /*$imagename = $myimage->image->getClientOriginalName();
+            $imagesize = $myimage->image->getClientSize();
+
+            //$myimage->image->store('public/allimages');
+            $myimage->image->storeAs('public/allimages',$imagename);
+
+            $file= new Fileupload;
+            $file->name = $imagename;
+            $file->size = $imagesize;
+            $file->save();
+
+            //return "File uploaded successfully";
+           **/
+
+        }
+    }
+
+    public function store(Request $fdata){     
+
         if($fdata->hasFile('image')){
-            //return $fdata->file('image');             //show the file path
+            return $fdata->file('image');             //show the file path
             //return $fdata->image->path();             //show the file path
             //return $fdata->image->extension();        //show the extension
 
@@ -22,7 +64,7 @@ class FileuploadController extends Controller
             //Another way to upload
             //return Storage::putFile('public/allimages', $fdata->file('image'));
 
-            return $fdata->image->storeAs('public/allimages','jewel.jpg');
+            //return $fdata->image->storeAs('public/allimages','jewel.jpg');
 
         }   
         else{

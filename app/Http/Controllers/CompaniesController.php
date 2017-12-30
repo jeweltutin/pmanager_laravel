@@ -56,7 +56,6 @@ class CompaniesController extends Controller
             }
         }
         return back()->withInput()->with('errors','Error Creating new Company');
-
     }
 
     /**
