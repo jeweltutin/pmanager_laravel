@@ -45,3 +45,9 @@ Route::post('file/uploading','FileuploadController@storeFile')->name('file.uploa
 
 //for protection
 Route::get('uploadedFile/{filename}','FileuploadController@getFile')->name('get.file')->middleware('auth');
+
+
+//Facebook login
+Route::get('login/facebook', 'Auth\LoginController@redirectToFacebook');
+//Route::get('login/facebook/callback', 'Auth\LoginController@handleFacebookCallback');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleFacebookCallback');

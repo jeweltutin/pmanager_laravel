@@ -15,6 +15,11 @@
                     @endif
 
                     You are logged in!
+                    Welcome !! {{ Auth::user()->name }}.<br />
+                    Facebook user ID : {{ session('fbUserName') }}
+                    {!! session()->get('fbUserName') !!}
+
+
                 </div>
             </div>
         </div>
