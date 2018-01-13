@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Socialite;
 
 class LoginController extends Controller
 {
@@ -36,34 +35,5 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
-
-
-    /**
-     * Redirect the user to the Facebook authentication page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function redirectToFacebook()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleFacebookCallback()
-    {
-        $user = Socialite::driver('facebook')->user();
-        //dd($user);
-
-        echo $user->token;
-        //return $user->getAvatar();
-        $fbuser = $user->getName();
-        echo $fbuser;
-        //$fbuser = "Tania islam";
-        //return redirect()->route('home')->with('fbUserName' , 'good news');
     }
 }

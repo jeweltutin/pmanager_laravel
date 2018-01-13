@@ -48,6 +48,6 @@ Route::get('uploadedFile/{filename}','FileuploadController@getFile')->name('get.
 
 
 //Facebook login
-Route::get('login/facebook', 'Auth\LoginController@redirectToFacebook');
+Route::get('login/facebook', 'Auth\RegisterController@redirectToFacebook');
 //Route::get('login/facebook/callback', 'Auth\LoginController@handleFacebookCallback');
-Route::get('login/facebook/callback', 'Auth\LoginController@handleFacebookCallback');
+Route::get('login/facebook/callback', 'Auth\RegisterController@handleFacebookCallback');

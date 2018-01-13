@@ -9,6 +9,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -81,6 +82,18 @@
                 <div class="title m-b-md">
                     PManager
                 </div>
+                <a href="{{ url('/login/facebook') }}" class="btn btn-block btn-primary btn-facebook">
+                    <span class="fa fa-facebook glyphicon glyphicon-log-in"></span> Sign in with Facebook
+                </a>
+
+                <a href="{{ url('/auth/twitter') }}" class="btn btn-block btn-info btn-twitter">
+                    <span class="fa fa-twitter glyphicon glyphicon-log-in"></span> Sign in with Twitter
+                </a>
+
+                <a href="{{ url('/auth/google') }}" class="btn btn-block btn-danger btn-google">
+                    <span class="fa fa-google glyphicon glyphicon-log-in"></span> Sign in with Google
+                </a>
+                <br /><br /><br />
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\SocialProvider;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Socialite;
 
 class RegisterController extends Controller
 {
@@ -67,5 +69,56 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Redirect the user to the Facebook authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function handleFacebookCallback()
+    {
+        
+        //dd($user);
+        //return redirect()->route('home')->with('fbUserName' , 'good news');
+
+        try{
+            $socialUser = Socialite::driver('facebook')->user();
+        }
+        catch(\Exception $e){
+            return redirect('/');
+        }
+        $socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
+  
+        if(!$socialProvider){
+            $user = User::firstOrCreate(
+                ['email' => $socialUser->getEmail()],
+                ['name' => $socialUser->getName()]
+            );
+            //dd($user);
+            $user->socialProviders()->create(
+                ['provider_id' => $socialUser->getId(), 'provider' => 'facebook']
+            );
+            $user->avatar = $socialUser->getAvatar();
+            $user->password = bcrypt('fb12345');
+            $user->save();
+        }
+        else{
+            $user = $socialProvider->user;
+        }
+        auth()->login($user);
+        return redirect('/home')->with(['hd' => 'example.com']);
     }
 }

@@ -15,8 +15,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','first_name','middle_name',
-        'last_name','city','country','role_id'
+        'name', 'email','avatar','first_name','middle_name',
+        'last_name','country','role_id'
     ];
 
     /**
@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+         'password','remember_token',
     ];
 
     public function companies(){
@@ -47,5 +47,9 @@ class User extends Authenticatable
 
     public function comments(){
         return $this->morphMany('App\Comment', 'commentable');
+    }
+
+    public function socialProviders(){
+        return $this->hasMany('App\SocialProvider');
     }
 } 
